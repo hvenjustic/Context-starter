@@ -21,6 +21,8 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow-y: scroll; /* 保留滚动条空间，避免页面跳动 */
+  scrollbar-gutter: stable;
 }
 
 a {

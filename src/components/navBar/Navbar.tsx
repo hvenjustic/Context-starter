@@ -9,10 +9,10 @@ import { FiArrowUpRight, FiMenu, FiX } from 'react-icons/fi';
 import ThemeToggle from '@/components/ThemeToggle';
 
 const navLinks = [
-  { href: '/', label: 'Overview' },
-  { href: '#activity', label: 'Activity' },
-  { href: '#blueprint', label: 'Blueprint' },
-  { href: '#actions', label: 'Actions' }
+  { href: '/', label: 'Home' },
+  { href: '/products', label: 'Products' },
+  { href: '/agent', label: 'Agent' },
+  { href: '/chat', label: 'Chat' }
 ];
 
 export default function Navbar() {
@@ -40,24 +40,31 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="group relative text-sm font-semibold text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
-            >
-              {link.label}
-              <span className="absolute -bottom-2 left-0 h-0.5 w-0 bg-indigo-500 transition-all duration-200 group-hover:w-full" />
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group relative text-sm font-semibold text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-2 left-0 h-0.5 bg-indigo-500 transition-all duration-200 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
+              </Link>
+            );
+          })}
           <ThemeToggle />
-          <a
-            href="#actions"
+          <Link
+            href="/products"
             className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:-translate-y-0.5 hover:bg-indigo-500"
           >
-            Use template
+            View products
             <FiArrowUpRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -90,13 +97,13 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="#actions"
+              <Link
+                href="/products"
                 className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white"
               >
-                Use template
+                View products
                 <FiArrowUpRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
